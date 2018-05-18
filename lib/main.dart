@@ -79,7 +79,8 @@ class MyAppState extends State<MyApp> {
                 child: Column( crossAxisAlignment: CrossAxisAlignment.end,
                    children: <Widget>[
             Expanded(child: new Material(type:MaterialType.card,elevation: 4.0, child:Row(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.end,
-                children: [Text(resultString,textAlign: TextAlign.right, style: TextStyle(fontSize: 50.0, color: Colors.teal[900]),)]))),
+                children: [new Padding(padding: const EdgeInsets.all(8.0),child: Text(resultString,textAlign: TextAlign.right, style: TextStyle(fontSize: 50.0, color: Colors.teal[900]),),)]))),
+            Padding(padding: const EdgeInsets.all(8.0),),
             buildRow(3,7,1,"/", (accu, dividor)=> accu / dividor , 1),
             buildRow(3,4,1,"x", (accu, dividor)=> accu * dividor , 1),
             buildRow(3,1,1,"-", (accu, dividor)=> accu - dividor , 1),
