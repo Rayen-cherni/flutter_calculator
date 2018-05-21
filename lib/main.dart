@@ -12,8 +12,6 @@ class MyApp extends StatefulWidget {
 
 typedef OperatorFunc = double Function(double accu, double operand);
 
-MaterialColor numberPad = Colors.lime;
-MaterialColor operationsPad = Colors.orange;
 Color batmanBlack = const Color(0xff050505);
 Color batmanYellow = const Color(0xffFDE311);
 
@@ -48,11 +46,11 @@ class MyAppState extends State<MyApp> {
     return new Iterable.generate(count, (index) {
       return new Expanded(flex: flex,
         child: new Padding(padding: const EdgeInsets.all(8.0),
-          child: RaisedButton(onPressed: () => numberPressed(from + index),shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(10.0)),
-              color: Colors.white12, highlightColor: numberPad[400], splashColor: numberPad[800],
+          child: RaisedButton(onPressed: () => numberPressed(from + index), shape: new CustomBorder(),
+              color: Colors.white12,
               elevation: 8.0, highlightElevation: 12.0,
               child: Text(
-                "${from + index}", style: TextStyle(fontSize: 40.0,color: batmanYellow),)),
+                "${from + index}", style: TextStyle(fontSize: 20.0,color: batmanYellow),)),
         ),
       );
     }).toList();
@@ -63,7 +61,7 @@ class MyAppState extends State<MyApp> {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: RaisedButton(onPressed: () => calc(func), shape: new StadiumBorder(),
-            color: Colors.white12, highlightColor:  operationsPad[400], splashColor:  operationsPad[600],
+            color: Colors.white12,
             elevation: 10.0, highlightElevation: 16.0, child: Text(label,style:  new TextStyle(fontSize: 32.0,color: batmanYellow))),
       ),
     );
@@ -98,4 +96,21 @@ class MyAppState extends State<MyApp> {
   }
 }
 
+class CustomBorder extends StadiumBorder{
+  @override
+  Path getOuterPath(Rect rect, { TextDirection textDirection }) {
 
+//    https://gist.github.com/ch-bu/886116819a51c71c3286a9ed3708130a
+    List<Offset> list = <Offset>[Offset(0.0,0.0), Offset(0.336,0.0), Offset(0.3368,0.16), Offset(0.4517,0.218), Offset(0.471,0.069),
+    Offset(0.486,0.138), Offset(0.517,0.138), Offset(0.5328,0.069), Offset(0.5521,0.218), Offset(0.637,0.16), Offset(0.668,0.0),
+      Offset(1.0,0.0), Offset(0.8687,0.5287), Offset(0.5,1.0), Offset(0.1583, 0.5287)
+    ];
+    List<Offset> list2=  [];
+    for (Offset  offset in list){
+      list2.add(Offset(offset.dx * rect.width, (offset.dy + 0.5) * rect.height/2));
+    }
+    return new Path()..addPolygon(list2, true);
+  }
+
+  @override Path getInnerPath(Rect rect, { TextDirection textDirection }) => getOuterPath(rect);
+}
