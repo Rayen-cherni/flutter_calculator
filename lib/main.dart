@@ -12,6 +12,10 @@ class MyApp extends StatefulWidget {
 
 typedef OperatorFunc = double Function(double accu, double operand);
 
+MaterialColor numberPad = Colors.lime;
+MaterialColor operationsPad = Colors.orange;
+MaterialColor fontColor = Colors.deepPurple;
+
 class MyAppState extends State<MyApp> {
 
   double accu = 0.0;
@@ -44,10 +48,10 @@ class MyAppState extends State<MyApp> {
       return new Expanded(flex: flex,
         child: new Padding(padding: const EdgeInsets.all(8.0),
           child: RaisedButton(onPressed: () => numberPressed(from + index),shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(10.0)),
-              color: Colors.teal[100], highlightColor: Colors.teal[400], splashColor: Colors.teal[800],
+              color: numberPad[200], highlightColor: numberPad[400], splashColor: numberPad[800],
               elevation: 8.0, highlightElevation: 12.0,
               child: Text(
-                "${from + index}", style: TextStyle(fontSize: 40.0),)),
+                "${from + index}", style: TextStyle(fontSize: 40.0,color: fontColor[900]),)),
         ),
       );
     }).toList();
@@ -58,8 +62,8 @@ class MyAppState extends State<MyApp> {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: RaisedButton(onPressed: () => calc(func), shape: new StadiumBorder(),
-            color: Colors.purple[100], highlightColor:  Colors.purple[200], splashColor:  Colors.purple[400],
-            elevation: 10.0, highlightElevation: 16.0, child: Text(label,style:  new TextStyle(fontSize: 32.0))),
+            color: operationsPad[200], highlightColor:  operationsPad[400], splashColor:  operationsPad[600],
+            elevation: 10.0, highlightElevation: 16.0, child: Text(label,style:  new TextStyle(fontSize: 32.0,color: fontColor[900]))),
       ),
     );
   }
@@ -75,11 +79,11 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return new MaterialApp(
       home: new SafeArea(
-              child: new Material(color: Colors.purple[50],
+              child: new Material(color: operationsPad[50],
                 child: Column( crossAxisAlignment: CrossAxisAlignment.end,
                    children: <Widget>[
-            Expanded(child: new Material(type:MaterialType.card,elevation: 4.0, child:Row(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.end,
-                children: [new Padding(padding: const EdgeInsets.all(8.0),child: Text(resultString,textAlign: TextAlign.right, style: TextStyle(fontSize: 50.0, color: Colors.teal[900]),),)]))),
+            Expanded(child: new Material(type:MaterialType.card,elevation: 4.0, color: numberPad[50] ,child:Row(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.end,
+                children: [new Padding(padding: const EdgeInsets.all(8.0),child: Text(resultString,textAlign: TextAlign.right, style: TextStyle(fontSize: 50.0, color: fontColor[900]),),)]))),
             Padding(padding: const EdgeInsets.all(8.0),),
             buildRow(3,7,1,"/", (accu, dividor)=> accu / dividor , 1),
             buildRow(3,4,1,"x", (accu, dividor)=> accu * dividor , 1),
